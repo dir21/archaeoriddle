@@ -1,19 +1,19 @@
 # Archaeoriddle: the original challenge {#original-challenge}
 
-In this chapter we will here go through all the steps we presented throughout Chapter&nbsp;\@ref(env) to&nbsp;\@ref(final-output), but in a condensed way and with the parameters used to generate the data shared during the Archaeoriddle original challenge. But before that we will we retrace the journey from the first discussions in the courtyard of the McDonald Institute in Cambridge to the final workshop in Belfast.
+In this chapter we willgo through all the steps we presented in Chapters&nbsp;\@ref(env) to&nbsp;\@ref(final-output), but in a condensed way and with the parameters used to generate the data shared during the Archaeoriddle original challenge. But before that we will we retrace the journey from the first discussions in the courtyard of the McDonald Institute in Cambridge to the final workshop in Belfast.
 
-We will then end the chapater by briefly  discuss  the proposal submitted for the challenge.
+We will then end the chapter by discussing briefly the proposal submitted for the challenge.
 
 ## Context 
 
-Here a bit of how all that happen, and the majors steps.
+Here is a bit about how all that happened, and the major steps.
 
 ### Original idea and first reflections
 
 
 ### Birth of a Challenge
 
-After discussion within the member of the CDAL, we decided that a challenge-like event, with a cash-prize, would be the best way to convince people to participate. After the B/A grant has been awarded to Simon Carrignon, Alfredo Cortell and Enrico Crema, we thus decided to announce this challenge through various social media video and a website: https://theia.arch.cam.ac.uk/archaeoriddle/
+After discussion within the membership of the CDAL, we decided that a challenge-like event, with a cash-prize, would be the best way to convince people to participate. After the British Academy grant was awarded to Simon Carrignon, Alfredo Cortell and Enrico Crema, we decided to announce this challenge through various social media videos and a website: https://theia.arch.cam.ac.uk/archaeoriddle/
 
 ### The British Academy Grant -- November 2022
 
@@ -64,57 +64,57 @@ After discussion within the member of the CDAL, we decided that a challenge-like
 > Alfredo Cortell-Nicolau, Simon Carrignon, Xavier Rubio-Campillo and Enrico R. Crema
  
 
-On top of allowing participants to download the public dataset, and to select new square to survey, the website mentioned in the call listed a series of research questions aimed to guide participants in their endeavours.
+In addition to allowing participants to download the public dataset, and to select new squares to survey, the website mentioned in the call listed a series of research questions intended to guide participants in their endeavours.
 
 #### Research Questions
 
 - *RQ1.*  The Poppy-chewers and Rabbit-skinners had a hostile relationship.
 
-- *RQ2.*  Poppy-chewers followed an exponential population growth, while Rabbit-Skinners eventually stalled, and as the Poppy-chewers population size started to increase, their population declined (Fig. 3).
-- *RQ3.*  The rate of dispersal varied across the landscape, with an average of ~0.62 Km/year, faster for the sea crossing (~1.11 Km/year) and a slight slow-down to ~0.57 Km/year for the Northeastern quadrant of the map.
+- *RQ2.*  Poppy-chewers exhibited an exponential population growth, while Rabbit-Skinners eventually stalled, and as the Poppy-chewers' population size started to increase, their population declined (Fig. 3).
+- *RQ3.*  The rate of dispersal varied across the landscape, with an average of ~0.62 Km/year, faster for the sea crossing (~1.11 Km/year), and a slight slow-down to ~0.57 Km/year for the Northeastern quadrant of the map.
 
 
-The website where these research question will disappear anytime soon, so here is a snapshot of the first page:
+The website where these research question will disappear soon, so here is a snapshot of the first page:
 
 
-But in case this disappear, the source to reproduce the website are also available in the github Archaeoriddle repository [here](https://github.com/acortell3/archaeoriddle/tree/main/doc/shinyapp).
+But in case this disappears, the source to reproduce the website is also available in the github Archaeoriddle repository [here](https://github.com/acortell3/archaeoriddle/tree/main/doc/shinyapp).
 
 The call was issued in April 2023, after acceptance of the workshop at EAA, and 5 proposals were submitted. 
 
-During the actual workshop, the whole project was summarised, the 5 proposal described by there respective authors, and the exact simulation reveiled.
+During the actual workshop, the whole project was summarised, the 5 proposals described by their respective authors, and the exact simulation revealed.
 
 ## Implementation
 
-The Challenge is basically built on top of a manually selected environment, generated using the tools describe in the previous chapter, on top of which a bunch of simulation have been run, and one has been selected.
+The Challenge is basically built on top of a manually selected environment, generated using the tools described in the previous chapter, on top of which a bunch of simulations have been run, and one has been selected.
 
-But as [Simon Carrinon](sc.fram.io) has done a poor job when he did the simulation he didn't generate seeds, nor stored them, for each experiment; so we cannot re-run the original one EXACTLY as it happened. But he kept a lot of informations and output about it which, are stored in the folder `general_results_selected_simu/`
+But because [Simon Carrinon](sc.fram.io) did a poor job when he ran the simulation, he didn't generate seeds, nor store them, for each experiment; so we cannot re-run the original one _exactly_ as it happened. But he kept a lot of information about and output of it which, are stored in the folder `general_results_selected_simu/`
 
 This should be enough to allow anyone to reconstruct most of what happened. Thus, a quick recap of the implementation of the original challenge:
 
 Using all the functions developed and described previously in this book, we :
 
-1. Generate an environment that look cools
+1. Generate an environment that looks cool
 2. Choose a series of parameters and
-3. Run hundreds of simulations and choose the one who looked the coolest 😆.
+3. Run hundreds of simulations and choose the one which looked the coolest 😆.
   
-We used the script [scriptmini.R](https://github.com/acortell3/archaeoriddle/blob/main/doc/bookdown/scriptmini.R) to run one simulation, and then used a very simple and inelegant bash loop to parallelise muleiple run:
+We used the script [scriptmini.R](https://github.com/acortell3/archaeoriddle/blob/main/doc/bookdown/scriptmini.R) to run one simulation, and then used a very simple and inelegant bash loop to parallelise multiple runs:
 
 ```bash
 for t in {1..5} ; do Rscript scriptmini.R newset_$t > log_new_set$t 2> log_new_set$t.err &  done
 ```
 
-One can see, on line 52 until the end of the `scriptmini.R`, that some graphes are saved. This will be used to quickly compare the different simulation and choose the good one.
+One can see, from line 52 until the end of the `scriptmini.R`, that some graphics are saved. These will be used to quickly compare the different simulations and choose the good one.
 
-The simulation are also run with the parameter: `visumin=TRUE `, which allow to save images of population growth and settlement creation at every time step while the model is running, which can then be used to generate video of the whole process using simple script like:
+The simulations are also run with the parameter: `visumin=TRUE `, which allows the saving of images of population growth and settlement creation at every time step while the model is running. These can then be used to generate video of the whole process using a simple script such as:
 
 ```bash
 for i in test*_? ; do ffmpeg -i "$i/map_000%3d.png" "${i}_out.mp4" ; done
 #need better option for web display: for i in buffattack*.mp4 ; do ffmpeg -i $i -c:v libx264 -crf 23 -preset medium -vf format=yuv420p -c:a copy -movflags +faststart web_$i ; done
 ```
 
-where `test*` will the folder storing all output of simulation. We provide the simulation that were generated during this preliminary phase in the zenodo folder associated to the first paper published fomr the Archaeoriddle project in [this archive](https://zenodo.org/records/14024548/files/run_selection.tar.gz) (wrning, its 1.2GB).
+where `test*` is the folder storing all output of a simulation. We provide the simulations that were generated during this preliminary phase in the zenodo folder associated with the first paper published fomr the Archaeoriddle project in [this archive](https://zenodo.org/records/14024548/files/run_selection.tar.gz) (Warning: its 1.2GB).
 
-Here videos showing a selection of some of the scenario discarded while choosing the ultimate run:
+Here are videos showing a selection of some of the scenarios discarded while choosing the ultimate run:
 
 ```{r comparvid,echo=F,out.width='40%',results="asis"}
 
@@ -152,7 +152,7 @@ coastline <- st_as_sf(as.polygons(above_level))[2,]
 plot(coastline, col=NA, bgc=adjustcolor("cyan", 0.1), add=T)
 ```
 
-Adding resources, using the original coordinates, which were manually selected to correspond to interesting parts of the map 
+Adding resources, using the original coordinates, which were manually selected to correspond to interesting parts of the map:
 
 ```{r originalress,fig.show="hold"}
 ##ressource geolocalisation set manually
@@ -189,14 +189,14 @@ original.ress <- mask(original.ress,original.viable)
 plot(original.ress)
 ```
 
-This, should also exactly correspond to what is stored in `data_original/resources.tiff`
+This should also correspond exactly to what is stored in `data_original/resources.tiff`
 
 ```{r comptiff,out.width="45%",fig.show="gold" }
 plot(original.ress)
 plot(rast("data_original/resources.tiff"))
 ```
 
-And this is `Rabbithole`  home of the Poppychewer and Rabbitskinner!
+And this is `Rabbithole`,  home of the Poppy-chewer and Rabbit-skinner!
 We can take back the sites' positions, defined for the original Archaeoriddle and see all sites at the beginning of the simulation:
 
 ```{r rabbithole}
@@ -206,7 +206,7 @@ points(crds(original.sites), pch=21, bg=rainbow(2, alpha=0.6)[as.factor(original
 text(original.sites,pos=3)
 ```
 
-And below are the original set of parameters.
+And below are the original set of parameters:
 
 ```{r originalinit}
 
@@ -282,16 +282,16 @@ plot(growF, col="red", type="l", lwd=2, ylim=c(0, max(growF, growHG)))  # Plot g
 points(growHG, col="blue", lwd=2, type="l")  # Add points for growth of 'HG' culture
 ```
 
-We could then apply the record deposit and the loss function as described in Chapter&nbsp;\@ref(final-output), and generate a fake archaeological record to share with others. This would give a fake archaeological record for one simulation, ran using the same initial conditions and parameters as those used during the original challenge. However, these results won't exactly replicate what occurred during the original challenge.
+We could then apply the record deposit and the loss function as described in Chapter&nbsp;\@ref(final-output), and generate a fake archaeological record to share with others. This would give a fake archaeological record for one simulation, run using the same initial conditions and parameters as those used during the original challenge. However, these results won't exactly replicate what occurred during the original challenge.
 
-Unfortunately, as we briefly mentioned earlier, we can't recreate _exactly_ the same run from scratch because every interaction between settlements (migration, wars) and within settlements (birth and death) is stochastic. To replicate the same outcomes, we would need to use the same seed to ensure every random draw is identical. However, we can indeed run _multiple_ simulations, as we did in Chapter \@ref(explore-simulation), to estimate what typically happens under these conditions.
+Unfortunately, as we mentioned earlier, we can't recreate _exactly_ the same run from scratch because every interaction between settlements (migration, wars) and within settlements (birth and death) is stochastic. To replicate the same outcomes, we would need to use the same seed to ensure every random draw is identical. However, we can run _multiple_ simulations, as we did in Chapter \@ref(explore-simulation), to estimate what typically happens under these conditions.
 
-Nonetheless, even if we can't replicate it from scratch, we still have information about what happened step by step, stored in `data_original/general_results_selected_simu/`. We will leave a larger-scale exploration of these specific parameters as an exercise for those who would like to explore them in more detail during the original challenge.
+Even if we can't replicate it from scratch, we still have information about what happened step by step, stored in `data_original/general_results_selected_simu/`. We will leave a larger-scale exploration of these specific parameters as an exercise for those who would like to explore them in more detail during the original challenge.
 
 ### Generate and share final simulation
 
 
-Let's load again the maps, matrix storing all population changes and war casualites
+Load again the maps, matrix storing all population changes and war casualites:
 
 
 ```{r loadressources-oc}
@@ -300,7 +300,7 @@ Nts=theoriginalchallenge$Nts
 warcasualties=theoriginalchallenge$warcasualties
 ```
 
-We can look again at the site at the beginning
+We can look again at the site at the beginning:
 
 ```{r plotinitialcondition-oc,cache=F}
 
@@ -354,7 +354,7 @@ And replaying  all of that, on the map, will give this:
 cat('<video controls> <source  src="data_original/run_selection/web_buffattack300_K110_PSU065_3_out.mp4" type="video/mp4"></video>')
 ```
 
-Using `Rec_c` , `short_loss` and `long_loss` we generated deposit from the record of the run selected from the original challenge.  This takes long time when applied for all sites for all the time of simulations but can be done:
+Using `Rec_c` , `short_loss` and `long_loss` we generated deposit from the records of the run selected from the original challenge.  This takes a long time when applied for all sites for all the time of simulations but can be done:
 
 
 ```{r doloss-oc,eval=F}
@@ -367,10 +367,10 @@ allLosses=lapply(1:length(alldeposit),function(ind){
     Rec=long_loss(Rec,.9997,7500) #apply long loss
     return(Rec)
 })
-rm(alldeposit) #we suggest you to remove the deposit object, which can be large and isn't used after
+rm(alldeposit) # We suggest you remove the deposit object, which can be large and isn't used afterwards
 ```
 
-We then limited the amount of sample available, with the assumption that if the biggest site was to be excavated as much as possible, we won't have more than 30 dates from it. Thus we randomly sampled after having normalised by this max amount.
+We then limited the amount of sample available, with the assumption that if the biggest site was to be excavated as much as possible, we will not have more than 30 dates from it. Thus we randomly sampled after having normalised by this max amount:
 
 ```{r removesmall, eval=F}
 maxSites=max(sapply(allLosses,sum))
@@ -383,14 +383,14 @@ totallDatesRemains=sapply(allRemainingDates,function(i)table(factor(i,levels=dat
 saveRDS(allRemainingDates,file=paste0(expname,"_dates.RDS"))
 ```
 
-Although the seed used for the sampling hasn't be saved, the output of this steps been saved and get be loaded back.
+Although the seed used for the sampling hasn't be saved, the output of these steps has been saved and can be loaded back:
 
 ```{r getfakedates-oc}
 dates.oc=readRDS("data_original/general_results_selected_simu/buffattack300_K110_PSU065_3_dates.RDS")
 sites.oc=vect("data_original/general_results_selected_simu/buffattack300_K110_PSU065_3_sitesRast.RDS")
 ```
 
-After our previous sub-sampling, some sites wont have any date  so we remove them from the list of available dates, that becomes:
+After our previous sub-sampling, some sites will not have any date  so we remove them from the list of available dates, that becomes:
 
 ```{r extractdates-oc}
 foundsites.oc=sites.oc[lengths(dates.oc)>0,]
@@ -398,7 +398,7 @@ foundsites.oc$numdates=unlist(lengths(dates.oc[lengths(dates.oc)>0]))
 founddates.oc=dates.oc[lengths(dates.oc)>0]
 ```
 
-We then make it a bit annoying by removing BP to the dates, we add useless and meaningless different standard deviation:
+We then make it a bit annoying by removing BP from the dates, and we add a useless and meaningless different standard deviation:
 
 ```{r addstdev-oc}
 stdpool=c(20,30,40,50,60,80,100,120)
@@ -411,11 +411,11 @@ plotMap(height.ras,height.wat)
 plot(foundsites.oc,cex=foundsites.oc$numdates/20+1,pch=21,bg=as.factor(foundsites.oc$culture),add=T)
 ```
 
-Again, this is stochastic (the selection of the fake standard variation added is radom), so the exact results can't be reproduced exactly, although in that case this steps doesn't change anything, the outcome of this steps is available in the folder [data_original/all_squares.oc/](./data_original/all_squares.oc/).
+Again, this is stochastic (the selection of the fake standard variation added is random), so the exact results can't be reproduced exactly, although in that case these steps don't change anything. The outcome of these steps is available in the folder [data_original/all_squares.oc/](./data_original/all_squares.oc/).
 
 ### Grid generation and sharing
 
-Split the environment in grids and extract date for each grid
+Split the environment in to grids and extract dates for each grid:
 
 ```{r plotallfoundiste-oc}
 leftdates=dates.oc[lengths(dates.oc)>0]
@@ -439,9 +439,9 @@ plotMap(height.ras,height.wat)
 plot(st_geometry(inter.oc),add=T,bg=rainbow(2,alpha=.6)[as.factor(inter.oc$culture)],pch=21,cex=1+inter.oc$numdates/10)
 ```
 
-### Giving name to the publicly available data {#naming}
+### Giving names to the publicly available data {#naming}
 
-For the original challange we wanted sites to have a name for the sites publicly available. To do so we used: [fantasynamegenerators.com](https://www.fantasynamegenerators.com/fantasy-town-names.php). We manually positionned to generate some culturally relevant group depending on their geographical position, in a way slightly inspired by the reality ;  although this has no impact on the results. 
+For the original challange we wanted sites to have a name for the sites publicly available. To do so we used: [fantasynamegenerators.com](https://www.fantasynamegenerators.com/fantasy-town-names.php). We manually positioned to generate some culturally relevant group depending on their geographical position, in a way slightly inspired by the reality ;  although this has no impact on the results. 
 
 ```{r namesites-oc}
 
@@ -488,7 +488,7 @@ for(g in (1:length(squares.oc))[-selection.oc]){
 
 ### P1 
 
-P1 (https://github.com/dpriss/Archaeoriddle_Kahlenberg_Priss) was based on agent-based modelling (ABM) combined with exploratory data analysis. It first studied the land of Rabbithole and calibrated the dates provided, which were then used to compute trajectories of dispersal and study site preference using ArcGIS pro and R. The suggested dispersal rates over land and water were close to the Archaeoriddle solution. The proposal then used the results of its analyses to fit the ABM, which was built using NetLogo. For the ABM, moving groups of hunter–gatherers and farmers, as well as the different settlements, were treated as agents, with starting values obtained from the exploratory data analysis and relevant literature. Additionally, it introduced behavioural rules, including movement and site preference, reaction to population threshold or reaction to interaction. After running the model several times with different parameters, it correctly predicted a hostile relation between the two groups and inferred an initial location of the Rabbit-skinners in the northeastern quadrant and the Poppy-chewers in the southwestern quadrant, while also detecting the latters’ northward movement. The expansion rate was not captured by the initial assumption of logistic growth in the areas already densely inhabited by Poppy-chewers, which makes sense considering the different population trajectories of the two groups. 
+P1 (https://github.com/dpriss/Archaeoriddle_Kahlenberg_Priss) was based on agent-based modelling (ABM) combined with exploratory data analysis. It first studied the land of Rabbithole and calibrated the dates provided, which were then used to compute trajectories of dispersal, and to study site preference using ArcGIS Pro and R. The suggested dispersal rates over land and water were close to the Archaeoriddle solution. The proposal then used the results of its analyses to fit the ABM, which was built using NetLogo. For the ABM, moving groups of hunter–gatherers and farmers, as well as the different settlements, were treated as agents, with starting values obtained from the exploratory data analysis and relevant literature. Additionally, it introduced behavioural rules, including movement and site preference, reaction to population threshold, and reaction to interaction. After running the model several times with different parameters, it correctly predicted a hostile relationship between the two groups and inferred an initial location of the Rabbit-skinners in the northeastern quadrant and the Poppy-chewers in the southwestern quadrant, while also detecting the latter's northward movement. The expansion rate was not captured by the initial assumption of logistic growth in the areas already densely inhabited by Poppy-chewers, which makes sense considering the different population trajectories of the two groups. 
 
 
 ### P2 
@@ -497,7 +497,7 @@ P2 (https://doi.org/10.5281/zenodo.12803445) used point-process modelling focuse
 
 ### P3 
 
-P3 (https://doi.org/10.5281/zenodo.8260754) used species-distribution modelling in R to develop a four-stage research design. The first stage focused on determining which additional cells would result in a representative sample of the range variables (elevation and resource quality) present within the data. The second stage focused on data exploration to identify internal temporal, spatial and farmer and forager patterns. In the third stage, it generated summed probability distributions from the calibrated radiocarbon dates to generate relative estimates of population size through time for foragers and farmers. The fourth stage combined these data into a spatiotemporal species-distribution model, where both time and space were explicit predictors used to estimate the distribution of farmers and foragers in 100-year intervals. The spatiotemporal species distribution was successful in reproducing the directionality of the farming dispersal (from south to north) as well as the decline in hunter–gatherer populations.
+P3 (https://doi.org/10.5281/zenodo.8260754) used species-distribution modelling in R to develop a four-stage research design. The first stage focused on determining which additional cells would result in a representative sample of the range variables (elevation and resource quality) present within the data. The second stage focused on data exploration to identify internal temporal, spatial, and farmer and forager patterns. In the third stage, it created summed probability distributions from the calibrated radiocarbon dates to generate relative estimates of population size through time for foragers and farmers. The fourth stage combined these data into a spatiotemporal species-distribution model, where both time and space were explicit predictors used to estimate the distribution of farmers and foragers in 100-year intervals. The spatiotemporal species distribution was successful in reproducing the directionality of the farming dispersal (from south to north) as well as the decline in hunter–gatherer populations.
 
 
 ### P4
